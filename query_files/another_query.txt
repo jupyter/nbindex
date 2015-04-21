@@ -1,0 +1,15 @@
+curl -XPOST "http://localhost:9200/_search " -d'
+{ "query" : 
+        {"filtered":
+            {"filter": 
+                { "term": 
+                    { "cell_type": "code"                    
+                    } 
+                    
+                } 
+                
+            } 
+            
+        } 
+        
+    }'

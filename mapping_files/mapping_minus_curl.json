@@ -1,0 +1,87 @@
+{
+   "test2": {
+      "mappings": {
+         "type1": {
+            "properties": {
+               "metadata": {
+                  "properties": {
+                     "name": {
+                        "type": "string"
+                     },
+                     "signature": {
+                        "type": "string"
+                     }
+                  }
+               },
+               "nbformat": {
+                  "type": "long"
+               },
+               "nbformat_minor": {
+                  "type": "long"
+               },
+               "worksheets": {
+                  "properties": {
+                     "cells": {
+                        "properties": {
+                           "cell_type": {
+                              "type": "string"
+                           },
+                           "collapsed": {
+                              "type": "boolean"
+                           },
+                           "input": {
+                              "type": "string",
+                              "fields": {
+                                  "raw": {"type":"string", "index": "not_analyzed"}
+                              }
+                           },
+                           "language": {
+                              "type": "string"
+                           },
+                           "metadata": {
+                              "type": "object"
+                           },
+                           "outputs": {
+                               "type": "nested",
+                               "include_in_parent":true,
+                              "properties": {
+                                 "html": {
+                                    "type": "string"
+                                 },
+                                 "metadata": {
+                                    "type": "object"
+                                 },
+                                 "output_type": {
+                                    "type": "string"
+                                 },
+                                 "prompt_number": {
+                                    "type": "long"
+                                 },
+                                 "stream": {
+                                    "type": "string"
+                                 },
+                                 "text": {
+                                    "type": "string"
+                                 },
+                                 "png": {
+                                     "indexed": "not_analyzed",
+                                     "include_in_all": false,
+                                     "store": "no"
+                                 }     
+                              }
+                           },
+                           "prompt_number": {
+                              "type": "long"
+                           }
+                        }
+                     },
+                     "metadata": {
+                        "type": "object"
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}

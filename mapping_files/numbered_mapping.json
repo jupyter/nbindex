@@ -1,0 +1,87 @@
+     1	{
+     2	   "test2": {
+     3	      "mappings": {
+     4	         "type1": {
+     5	            "properties": {
+     6	               "metadata": {
+     7	                  "properties": {
+     8	                     "name": {
+     9	                        "type": "string"
+    10	                     },
+    11	                     "signature": {
+    12	                        "type": "string"
+    13	                     }
+    14	                  }
+    15	               },
+    16	               "nbformat": {
+    17	                  "type": "long"
+    18	               },
+    19	               "nbformat_minor": {
+    20	                  "type": "long"
+    21	               },
+    22	               "worksheets": {
+    23	                  "properties": {
+    24	                     "cells": {
+    25	                        "properties": {
+    26	                           "cell_type": {
+    27	                              "type": "string"
+    28	                           },
+    29	                           "collapsed": {
+    30	                              "type": "boolean"
+    31	                           },
+    32	                           "input": {
+    33	                              "type": "string",
+    34	                              "fields": {
+    35	                                  "raw": {"type":"string", "index": "not_analyzed"}
+    36	                              }
+    37	                           },
+    38	                           "language": {
+    39	                              "type": "string"
+    40	                           },
+    41	                           "metadata": {
+    42	                              "type": "object"
+    43	                           },
+    44	                           "outputs": {
+    45	                               "type": "nested",
+    46	                               "include_in_parent":true,
+    47	                              "properties": {
+    48	                                 "html": {
+    49	                                    "type": "string"
+    50	                                 },
+    51	                                 "metadata": {
+    52	                                    "type": "object"
+    53	                                 },
+    54	                                 "output_type": {
+    55	                                    "type": "string"
+    56	                                 },
+    57	                                 "prompt_number": {
+    58	                                    "type": "long"
+    59	                                 },
+    60	                                 "stream": {
+    61	                                    "type": "string"
+    62	                                 },
+    63	                                 "text": {
+    64	                                    "type": "string"
+    65	                                 },
+    66	                                 "png": {
+    67	                                     "indexed": "not_analyzed",
+    68	                                     "include_in_all": false,
+    69	                                     "store": "no"
+    70	                                 }     
+    71	                              }
+    72	                           },
+    73	                           "prompt_number": {
+    74	                              "type": "long"
+    75	                           }
+    76	                        }
+    77	                     },
+    78	                     "metadata": {
+    79	                        "type": "object"
+    80	                     }
+    81	                  }
+    82	               }
+    83	            }
+    84	         }
+    85	      }
+    86	   }
+    87	}'
