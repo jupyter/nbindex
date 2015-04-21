@@ -1,9 +1,0 @@
-curl -XPOST "http://localhost:9200/_search " -d'
-{ "query" : 
-        {"match": 
-                    { "cell_type": "code"                    
-                    } 
-                    
-                } 
-        
-    }'

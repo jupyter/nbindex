@@ -1,8 +1,0 @@
-curl -XGET "http://localhost:9200/_search" -d'
-{
-   "query": {
-      "match": {
-          "_all": "pandas"
-      }
-   }
-}'
