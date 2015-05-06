@@ -53,6 +53,7 @@ coverage.xml
 docs/_build/
 
 #dev mess
+.idea/
 .ipynb_checkpoints/
 elk_test/
 

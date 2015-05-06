@@ -1,0 +1,76 @@
+2015-05-06 16:16:37,463 ERROR: Exception on / [GET] [in /Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/szeitlin/mystuff/projects/nbindex/nbindex/flask_api_files/app.py", line 31, in check_indices
+    return es.cat.indices()
+NameError: global name 'es' is not defined
+2015-05-06 16:16:37,477 ERROR: Exception on / [GET] [in /Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/szeitlin/mystuff/projects/nbindex/nbindex/flask_api_files/app.py", line 31, in check_indices
+    return es.cat.indices()
+NameError: global name 'es' is not defined
+2015-05-06 16:19:42,110 ERROR: Exception on / [GET] [in /Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/szeitlin/mystuff/projects/nbindex/nbindex/flask_api_files/app.py", line 33, in check_indices
+    return es.cat.indices()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/client/utils.py", line 68, in _wrapped
+    return func(*args, params=params, **kwargs)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/client/cat.py", line 116, in indices
+    'indices', index), params=params)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/transport.py", line 307, in perform_request
+    status, headers, data = connection.perform_request(method, url, params, body, ignore=ignore, timeout=timeout)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/connection/http_urllib3.py", line 82, in perform_request
+    raise ConnectionError('N/A', str(e), e)
+ConnectionError: ConnectionError(('Connection aborted.', error(61, 'Connection refused'))) caused by: ProtocolError(('Connection aborted.', error(61, 'Connection refused')))
+2015-05-06 16:19:42,128 ERROR: Exception on / [GET] [in /Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/szeitlin/mystuff/projects/nbindex/nbindex/flask_api_files/app.py", line 33, in check_indices
+    return es.cat.indices()
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/client/utils.py", line 68, in _wrapped
+    return func(*args, params=params, **kwargs)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/client/cat.py", line 116, in indices
+    'indices', index), params=params)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/transport.py", line 307, in perform_request
+    status, headers, data = connection.perform_request(method, url, params, body, ignore=ignore, timeout=timeout)
+  File "/Users/szeitlin/anaconda/envs/elasticsearch/lib/python2.7/site-packages/elasticsearch/connection/http_urllib3.py", line 82, in perform_request
+    raise ConnectionError('N/A', str(e), e)
+ConnectionError: ConnectionError(('Connection aborted.', error(61, 'Connection refused'))) caused by: ProtocolError(('Connection aborted.', error(61, 'Connection refused')))
