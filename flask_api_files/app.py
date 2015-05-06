@@ -28,12 +28,20 @@ es = Elasticsearch()
 def not_found(error):
     return make_response(jsonify({'error': 'Notebook not found'}), 404)
 
+
 @app.route('/', methods=['GET'])
 def check_indices():
-    return es.cat.indices()
+    """
+
+    :return: list of indices with their number of shards, size(b) and status (red, green, yellow)
+
+    """
+
+    return es.cat.indices().replace('\n','<br />')
+
 
 @app.route('/', methods=['POST'])
-def create_index(index_name):
+def create_index(test4):
     """
     uses elasticsearch wrapper.
 
@@ -45,8 +53,9 @@ def create_index(index_name):
     except elasticsearchRequestError as re:
         return re
 
-@app.route('/index_name/doc_type', methods=['GET'])
-def get_mapping(index_name, doc_type):
+
+@app.route('/official_test/notebook', methods=['GET'])
+def get_mapping(official_test, notebook):
     """
     uses elasticsearch wrapper.
 
@@ -58,8 +67,9 @@ def get_mapping(index_name, doc_type):
     except elasticsearchRequestError as re:
         return re
 
-@app.route('/index_name', methods=['POST'])
-def put_mapping(mapfile, index_name, doc_type):
+
+@app.route('/test4', methods=['POST'])
+def put_mapping(mapfile, test4, doc_type):
     """
     uses elasticsearch wrapper.
 
@@ -86,6 +96,7 @@ def get_nb(nb_id):
         abort(404)
     return jsonify({'dummydata': dummydata[0]})
 
+
 @app.route('/nbindex/api/v1.0/notebooks', methods=['POST'])
 def submit_notebook():
     if not request.json or not 'title' in request.json:
@@ -98,6 +109,15 @@ def submit_notebook():
     notebooklist.append(nb)
     return jsonify({'dummydata': dummydata}), 201
 
+
+
+@app.route('/nbindex/api/v1.0/notebooks', methods=['POST'])
+def bulk_upload_notebooks():
+    if not request.json or not 'title' in request.json:
+        abort(400)
+
+
+
 @app.route('/nbindex/api/v1.0/notebooks/<int:nb_id>', methods=['DELETE'])
 def delete_nb(nb_id):
     nb = [nb for nb in nbindex if nb['id']==nb_id]
@@ -105,6 +125,7 @@ def delete_nb(nb_id):
         abort(404)
     notebooklist.remove(nb[0])
     return jsonify({'result': True})
+
 
 @app.route("/")
 def hello():
