@@ -1,10 +1,30 @@
 __author__ = 'szeitlin'
 
 from app import app
+import app as appmod
 
 import unittest
+from flask.ext.testing import TestCase
+
+try:
+    print(app.create_index.__doc__)
+except Exception as e:
+    print(e)
+
+class FlaskTest(TestCase):
+
+    def create_app(self):
+
+        app = Flask(__name__)
+        app.config['TESTING'] = True
+        return app
 
 class BasicTestCase(unittest.TestCase):
+
+    def setUp(self):
+        #create a test app that every test case can use
+
+        self.test_app = app.test_client()
 
     def test_connection(self):
         tester = app.test_client(self)
