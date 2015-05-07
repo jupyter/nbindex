@@ -10,6 +10,9 @@ from flask_restful import Api, Resource
 
 app = Flask(__name__)
 api = Api(app)
+app.config['PROPAGATE_EXCEPTIONS'] = True
+
+
 
 dummydata = [
     {
@@ -41,7 +44,7 @@ api.add_resource(UserAPI, '/users/<int:id>', endpoint='user')
 class UploadAPI(Resource):
 
     @app.route('/', methods=['POST'])
-    def create_index(index_name):
+    def create_index(self, index_name):
         """
         uses elasticsearch wrapper.
 
@@ -55,7 +58,7 @@ class UploadAPI(Resource):
 
 
     @app.route('/test4', methods=['POST'])
-    def put_mapping(mapfile, test4, doc_type):
+    def put_mapping(self, mapfile, test4, doc_type):
         """
         uses elasticsearch wrapper.
 
@@ -125,6 +128,7 @@ class SearchAPI(Resource):
         except elasticsearch.RequestError as re:
             return re
 
+
     @app.route('/nbindex/api/v1.0/<int:nb_id>', methods=['GET'])
     def get_nb(nb_id):
         nb = [nb for nb in nbindex if nb['id']==nb_id]
@@ -157,7 +161,7 @@ class OtherAPI(Resource):
     #     return response
 
     @app.route("/")
-    def hello():
+    def hello(self):
         """
         For testing.
 
@@ -195,7 +199,7 @@ api.add_resource(HelloWorld, '/')
 if not app.debug:
     import logging
     from logging import FileHandler
-    file_handler = FileHandler('flask_failure_log.txt')
+    file_handler = FileHandler('error.log')
     file_handler.setLevel(logging.WARNING)
     app.logger.addHandler(file_handler)
 
