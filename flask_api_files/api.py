@@ -29,24 +29,14 @@ dummydata = [
 
 es = Elasticsearch()
 
-class UserAPI(Resource):
-    def get(self, id):
-        pass
 
-    def put(self,id):
-        pass
 
-    def delete(self,id):
-        pass
+class IndexAPI(Resource):
 
-api.add_resource(UserAPI, '/users/<int:id>', endpoint='user')
-
-class UploadAPI(Resource):
-
-    @app.route('/', methods=['POST'])
-    def create_index(self, index_name):
+    @staticmethod
+    def put(self, index_name):
         """
-        uses elasticsearch wrapper.
+        uses elasticsearch wrapper to create an index.
 
         :param index_name: string in quotes
         :return: status
@@ -56,9 +46,37 @@ class UploadAPI(Resource):
         except elasticsearch.RequestError as re:
             return re
 
+    @staticmethod
+    def get():
+        """
+        uses make_response to convert to html (easier to read).
 
-    @app.route('/test4', methods=['POST'])
-    def put_mapping(self, mapfile, test4, doc_type):
+        :return: list of indices with their number of shards, size(b) and status (red, green, yellow)
+
+        """
+        return make_response(es.cat.indices().replace('\n','<br />'))
+
+
+api.add_resource(IndexAPI, '/data/', endpoint='database')
+
+
+class MappingAPI(Resource):
+
+    @staticmethod
+    def get(index_name, doc_type):
+        """
+        uses elasticsearch wrapper.
+
+        :param index_name: string in quotes, doc_type, string in quotes
+        :return: mapping, or error status
+        """
+        try:
+            es.indices.get_mapping(index=index_name, doc_type=doc_type)
+        except elasticsearch.RequestError as re:
+            return re
+
+    @staticmethod
+    def put(self, mapfile, test4, doc_type):
         """
         uses elasticsearch wrapper.
 
@@ -77,64 +95,56 @@ class UploadAPI(Resource):
             except elasticsearch.RequestError as re:
                 return re
 
-    @app.route('/nbindex/api/v1.0/notebooks', methods=['POST'])
-    def bulk_upload_notebooks():
+api.add_resource(MappingAPI, '/mappings/', endpoint='maps')
+
+
+class NotebookAPI(Resource):
+
+    @staticmethod
+    def put():
+        """
+        this will be used to bulk upload notebooks.
+
+        :return:
+        """
         if not request.json or not 'title' in request.json:
             abort(400)
 
 
-    @app.route('/nbindex/api/v1.0/notebooks', methods=['POST'])
-    def submit_notebook():
-        if not request.json or not 'title' in request.json:
-            abort(400)
-        nb = {
-            'id': nbindex[-1]['id']+1,
-            'title': request.json['title'],
-            'description': request.json.get('description', "")
-        }
-        notebooklist.append(nb)
-        return jsonify({'dummydata': dummydata}), 201
+    @staticmethod
+    def get(nb_id):
+        """
+        To get notebooks by id.
 
+        :param nb_id:
+        :return:
+        """
+        nb = [nb for nb in nbindex if nb['id']==nb_id]
+        if len(task) ==0:
+            abort(404)
+        return jsonify({'dummydata': dummydata[0]})
 
-
-class SearchAPI(Resource):
+    # @app.route('/', methods=['POST'])
+    # def submit_notebook():
+    #     """
+    #     Might be used to add one notebook at a time.
+    #     """
+    #     if not request.json or not 'title' in request.json:
+    #         abort(400)
+    #     nb = {
+    #         'id': nbindex[-1]['id']+1,
+    #         'title': request.json['title'],
+    #         'description': request.json.get('description', "")
+    #     }
+    #     notebooklist.append(nb)
+    #     return jsonify({'dummydata': dummydata}), 201
 
     @app.errorhandler(404)
     def not_found(error):
         return make_response(jsonify({'error': 'Notebook not found'}), 404)
 
+api.add_resource(NotebookAPI, '/notebooks/', endpoint='notebooks')
 
-    @app.route('/', methods=['GET'])
-    def check_indices():
-        """
-
-        :return: list of indices with their number of shards, size(b) and status (red, green, yellow)
-
-        """
-
-        return es.cat.indices().replace('\n','<br />')
-
-
-    @app.route('/official_test/notebook', methods=['GET'])
-    def get_mapping(index_name, doc_type):
-        """
-        uses elasticsearch wrapper.
-
-        :param index_name: string in quotes, doc_type, string in quotes
-        :return: mapping, or error status
-        """
-        try:
-            es.indices.get_mapping(index=index_name, doc_type=doc_type)
-        except elasticsearch.RequestError as re:
-            return re
-
-
-    @app.route('/nbindex/api/v1.0/<int:nb_id>', methods=['GET'])
-    def get_nb(nb_id):
-        nb = [nb for nb in nbindex if nb['id']==nb_id]
-        if len(task) ==0:
-            abort(404)
-        return jsonify({'dummydata': dummydata[0]})
 
 
 
@@ -160,20 +170,20 @@ class OtherAPI(Resource):
     #     response.status_code = error.status_code
     #     return response
 
-    @app.route("/")
-    def hello(self):
-        """
-        For testing.
-
-        :return:
-        """
-        return "Hello, World!"
-
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
-
-api.add_resource(HelloWorld, '/')
+#     @app.route("/")
+#     def hello(self):
+#         """
+#         For testing.
+#
+#         :return:
+#         """
+#         return "Hello, World!"
+#
+# class HelloWorld(Resource):
+#     def get(self):
+#         return {'hello': 'world'}
+#
+# api.add_resource(HelloWorld, '/')
 
 #in case of trouble:
 
