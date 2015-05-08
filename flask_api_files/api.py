@@ -34,7 +34,7 @@ es = Elasticsearch()
 class IndexAPI(Resource):
 
     @staticmethod
-    def put(self, index_name):
+    def put(index_name):
         """
         uses elasticsearch wrapper to create an index.
 
@@ -44,7 +44,7 @@ class IndexAPI(Resource):
         try:
             es.indices.create(index=index_name)
         except elasticsearch.RequestError as re:
-            return re
+            return get_response
 
     @staticmethod
     def get():
@@ -56,6 +56,9 @@ class IndexAPI(Resource):
         """
         return make_response(es.cat.indices().replace('\n','<br />'))
 
+    @app.errorhandler(404)
+    def not_found(error):
+        return make_response(jsonify(error, 404))
 
 api.add_resource(IndexAPI, '/data/', endpoint='database')
 
@@ -76,7 +79,7 @@ class MappingAPI(Resource):
             return re
 
     @staticmethod
-    def put(self, mapfile, test4, doc_type):
+    def put(mapfile, index_name, doc_type):
         """
         uses elasticsearch wrapper.
 
@@ -94,6 +97,10 @@ class MappingAPI(Resource):
                 es.indices.put_mapping(index=index_name, doc_type=doc_type, body=body)
             except elasticsearch.RequestError as re:
                 return re
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return make_response(jsonify(error, 404))
 
 api.add_resource(MappingAPI, '/mappings/', endpoint='maps')
 
@@ -164,11 +171,7 @@ class OtherAPI(Resource):
         notebooklist.remove(nb[0])
         return jsonify({'result': True})
 
-    # @app.errorhandler(InvalidUsage)
-    # def handle_invalid_usage(error):
-    #     response = jsonify(error.to_dict())
-    #     response.status_code = error.status_code
-    #     return response
+
 
 #     @app.route("/")
 #     def hello(self):
@@ -188,20 +191,20 @@ class OtherAPI(Resource):
 #in case of trouble:
 
 
-# class InvalidUsage(Exception):
-#     status_code = 400
-#
-#     def __init__(self, message, status_code=None, payload=None):
-#         Exception.__init__(self)
-#         self.message = message
-#         if status_code is not None:
-#             self.status_code = status_code
-#         self.payload = payload
-#
-#     def to_dict(self):
-#         rv = dict(self.payload or ())
-#         rv['message'] = self.message
-#         return rv
+class InvalidUsage(Exception):
+    status_code = 400
+
+    def __init__(self, message, status_code=None, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
 
 
 #logging
